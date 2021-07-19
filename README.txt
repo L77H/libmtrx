@@ -23,8 +23,8 @@
     
    int is_invertable(const int w, const frac M[][w])
     
-    - w: width of M
-    - M: matrix
+		- w: width of M
+		- M: matrix
     
  ** power **
   * raise raise matrix M to power of n *
