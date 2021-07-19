@@ -17,7 +17,7 @@
   * invert any non singular matrix with adjugated matrix *
    void i(const int w, const frac M[][w], frac R[][w])
    
-	 	- w: width/height of M 				 	
+		- w: width/height of M 				 	
 		- M: matrix to invert 				
 		- R: resulting matrix		
     
@@ -30,20 +30,20 @@
   * raise raise matrix M to power of n *
    void p(const int w, frac M[][w], frac R[][w], int n)
    
-    - w: width and height of M 			
-	  - M: matrix to raise to power 		
-	  - R: resulting matrix				
-	  - n: power to raise to				
+		- w: width and height of M 			
+		- M: matrix to raise to power 			
+		- R: resulting matrix				
+		- n: power to raise to				
   
  ** reduce **
   * create reduced matrices for calculation of Minors and Cofactors *
    void reduce(const int w, const frac M[][w], const int x, const int y, frac R[][w])
     
-	  - w: width of M 				 	
-	  - M: matrix to reduce 				
-	  - x: row to remove 					
-	  - y: column to remove 				
-	  - R: resulting matrix			
+		- w: width of M 				 	
+		- M: matrix to reduce 				
+		- x: row to remove 					
+		- y: column to remove 				
+		- R: resulting matrix			
     
  ** commuting **
   * check if matrix A and B are commute *
