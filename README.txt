@@ -1,5 +1,8 @@
 *** libmtrx ***
 
+ ** documentation **
+  * version 190722 *
+
  ** determinant **
   * calculate  square  matrix  determinant  using  Leibniz method *
    void d(int *V, const int n, const int s, const int x, frac *D, const frac M[][x], const unsigned long long f, const short r)
