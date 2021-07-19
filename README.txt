@@ -17,9 +17,9 @@
   * invert any non singular matrix with adjugated matrix *
    void i(const int w, const frac M[][w], frac R[][w])
    
-	  - w: width/height of M 				 	
-	  - M: matrix to invert 				
-	  - R: resulting matrix		
+	 	- w: width/height of M 				 	
+		- M: matrix to invert 				
+		- R: resulting matrix		
     
    int is_invertable(const int w, const frac M[][w])
     
