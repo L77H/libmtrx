@@ -197,3 +197,4 @@ frac (*parse_matrix(char *s))[] {
 
 	return M;
 }
+
