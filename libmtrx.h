@@ -1,5 +1,5 @@
 
-/* 									*
+/* 						*
  *		header code for libmtrx		*/
 
 struct true_value {
@@ -111,7 +111,7 @@ int *parse_matrix_size(char *s) {
 
 void parse_matrix_string(char *s, int w, frac M[][w]) {
 /* parse a matrix string of the following format: 			*
- * {{x, x, ..., x}, {x, x, ..., x}, ..., {x, x, ..., x}}	*
+ * {{x, x, ..., x}, {x, x, ..., x}, ..., {x, x, ..., x}}		*
  * and put the result in M, floating  points  are 			*
  * not yet supported. TODO: add floating  points!			*/
 
@@ -183,7 +183,7 @@ void parse_matrix_string(char *s, int w, frac M[][w]) {
 
 frac (*parse_matrix(char *s))[] {
 /* parse a matrix string of the following format: 			*
- * {{x, x, ..., x}, {x, x, ..., x}, ..., {x, x, ..., x}}	*
+ * {{x, x, ..., x}, {x, x, ..., x}, ..., {x, x, ..., x}}		*
  * returning a pointer  to a new  frac  2d array 			*/
 
 /* floating points are not yet  supported (TODO)!			*
