@@ -1,7 +1,7 @@
 *** libmtrx ***
 
  ** documentation **
-  * version 190722 *
+  * version 190721 *
 
  ** determinant **
   * calculate  square  matrix  determinant  using  Leibniz method *
