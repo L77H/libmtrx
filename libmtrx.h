@@ -191,10 +191,9 @@ frac (*parse_matrix(char *s))[] {
 
 	int *size = parse_matrix_size(s);
 
-	frac (*M)[size[1]] = malloc(sizeof(frac[size[0]][size[1]]));
+	frac (*M)[size[1]] = (frac (*)[size[1]]) malloc(sizeof(frac[size[0]][size[1]]));
 
 	parse_matrix_string(s, size[1], M);
 
 	return M;
 }
-
