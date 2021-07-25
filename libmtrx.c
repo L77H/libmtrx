@@ -168,7 +168,20 @@ static int is_identical(int w, int h, frac A[][w], frac B[][w]) {
 			B[i][j].numerator = B[i][j].denominator * A[i][j].numerator + A[i][j].denominator * B[i][j].numerator; \
 			B[i][j].denominator = max(B[i][j].denominator, 1) * A[i][j].denominator; \
 			B[i][j].floatpoint += A[i][j].numerator /A[i][j].denominator; \
-			simplify(&B[i][j]); /* simplify the result of the multiplication */ \
+			simplify(&B[i][j]); /* simplify the result of the addition */ \
+		} \
+	} \
+} \
+
+
+#define s(A, y, x, B) { \
+/* subtract matrix A from B and put result in B */ \
+	for (short i = 0; i < y; i++) { \
+		for (short j = 0; j < x; j++) { \
+			B[i][j].numerator = B[i][j].denominator * A[i][j].numerator - A[i][j].denominator * B[i][j].numerator; \
+			B[i][j].denominator = max(B[i][j].denominator, 1) * A[i][j].denominator; \
+			B[i][j].floatpoint += A[i][j].numerator /A[i][j].denominator; \
+			simplify(&B[i][j]); /* simplify the result of the subtraction */ \
 		} \
 	} \
 } \
