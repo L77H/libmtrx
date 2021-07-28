@@ -1,3 +1,4 @@
+```
 *** libmtrx ***
 
  ** documentation **
@@ -71,3 +72,4 @@
   * transpose matrix A, result in C *
    #define t(A, x, y, C)
    
+```
