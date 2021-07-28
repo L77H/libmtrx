@@ -368,4 +368,3 @@ int determinant_r(char *a) {
 matrix *topower_r(char *a, int n) {
 	return MTRX_FUNCTIONS_R__power(a, n);
 }
-
