@@ -385,13 +385,11 @@ void p(const int w, frac M[][w], frac R[][w], int n) {
 		transfer_matrix(w, w, T, R);
 }
 
-
-int main() {
+ // int main() {
 
 	/* test vectors here */
 	
 	/* driver code  here */
 
-	return 0;
-}
-
+//	return 0;
+// }
