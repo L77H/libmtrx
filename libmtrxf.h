@@ -443,9 +443,6 @@ static int MTRX_FUNCTIONS_RAW__determinant(matrix *a) {
 	return det.numerator / det.denominator;
 }
 
-// . . . 
-// TODO: add invert, power and determinant.
-
 
 /*			wrapper functions 			*/
 
