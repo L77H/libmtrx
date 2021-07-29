@@ -15,7 +15,7 @@ typedef struct {
  * memory   and  speed   efficiency   are  of *
  * importance, the use of  the matrix  struct *
  * is  not recommended,  reffer  to  use  of: *
- * frac (*M)[w] where w is the width  of   M */
+ * frac (*M)[w] where w is the  width  of   M */
 
 static void cpymtrx(int w, int h, frac (*A)[w], matrix *M) {
 	for (int i = 0; i < h; i++) {
@@ -377,6 +377,72 @@ static matrix *MTRX_FUNCTIONS_RAW__transpose(matrix *a) {
 	return M;
 }
 
+static matrix *MTRX_FUNCTIONS_RAW__invert(matrix *a) {
+	matrix *M = (matrix *) malloc(sizeof(matrix));
+
+	frac _M[a->height][a->width], A[a->height][a->width];
+
+	for (int i = 0; i < a->height; i++) {
+		for (int j = 0; j < a->width; j++) {
+			A[i][j].numerator = a->Matrix[i][j].numerator;
+			A[i][j].denominator = a->Matrix[i][j].denominator;
+			A[i][j].floatpoint = a->Matrix[i][j].floatpoint;
+		}
+	}
+
+	i(a->width, A, _M);
+
+	cpymtrx(a->height, a->width, _M, M);
+	M->height = a->height;
+	M->width = a->width;
+
+	return M;
+}
+
+static matrix *MTRX_FUNCTIONS_RAW__power(matrix *a, int n) {
+	matrix *M = (matrix *) malloc(sizeof(matrix));
+
+	frac _M[a->height][a->width], A[a->height][a->width];
+
+	for (int i = 0; i < a->height; i++) {
+		for (int j = 0; j < a->width; j++) {
+			A[i][j].numerator = a->Matrix[i][j].numerator;
+			A[i][j].denominator = a->Matrix[i][j].denominator;
+			A[i][j].floatpoint = a->Matrix[i][j].floatpoint;
+		}
+	}
+
+	p(a->width, A, _M, n);
+
+	cpymtrx(a->height, a->width, _M, M);
+	M->height = a->height;
+	M->width = a->width;
+
+	return M;
+}
+
+static int MTRX_FUNCTIONS_RAW__determinant(matrix *a) {
+	matrix *M = (matrix *) malloc(sizeof(matrix));
+
+	frac _M[a->height][a->width], A[a->height][a->width];
+
+	for (int i = 0; i < a->height; i++) {
+		for (int j = 0; j < a->width; j++) {
+			A[i][j].numerator = a->Matrix[i][j].numerator;
+			A[i][j].denominator = a->Matrix[i][j].denominator;
+			A[i][j].floatpoint = a->Matrix[i][j].floatpoint;
+		}
+	}
+
+	frac det = {0,1,0.0};
+	int base_state[a->width];
+
+	linear_row(base_state, a->width);
+	d(base_state, a->width, a->width, a->width, &det, A, factorial(a->width), 1);
+
+	return det.numerator / det.denominator;
+}
+
 // . . . 
 // TODO: add invert, power and determinant.
 
@@ -464,4 +530,16 @@ matrix *mulitply_raw(matrix *a, matrix *b) {
 
 matrix *transpose_raw(matrix *a) {
 	return MTRX_FUNCTIONS_RAW__transpose(a);
+}
+
+matrix *invert_raw(matrix *a) {
+	return MTRX_FUNCTIONS_RAW__invert(a);
+}
+
+matrix *topower_raw(matrix *a, int n) {
+	return MTRX_FUNCTIONS_RAW__power(a, n);
+}
+
+int determinant_raw(matrix *a) {
+	return MTRX_FUNCTIONS_RAW__determinant(a);
 }
