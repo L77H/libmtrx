@@ -2,7 +2,7 @@
 *** libmtrx ***
 
  ** documentation **
-  * version 280721 *
+  * version 290721 *
   
   * inlcude libmtrxf.h into your project to make use of the functions below *
   
@@ -36,6 +36,9 @@
    matrix *subtract_raw(matrix *a, matrix *b)
    matrix *mulitply_raw(matrix *a, matrix *b)
    matrix *transpose_raw(matrix *a)
+   matrix *invert_raw(matrix *a)
+   matrix *topower_raw(matrix *a, int n)
+   int determinant_raw(matrix *a)
   
   
  ** driver functions **
