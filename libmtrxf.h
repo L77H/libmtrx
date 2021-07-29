@@ -1,4 +1,4 @@
-#include "libmtrx.c"
+#include "drivers/libmtrx.c"
 
 /* the size of matrix struct is  capped  at *
  * 256 x 256 by default. This value can  be *
