@@ -12,6 +12,9 @@
  *		- decimal(void)          *
  *		- gcd(void)              *
  *		- simplify(void)         *
+ *		- add(f)         	 *
+ *		- subtract(f)		 *
+ *		- multiply(f)         	 *
  *		- out(void)              */
 
 typedef struct {
@@ -62,6 +65,21 @@ class fraction {
 		void simplify(void) {
 			long int g = GCD(frac->numerator, frac->denominator);
 			set(frac->numerator / g, frac->denominator / g);
+		}
+	
+		void add(fraction *f) {
+			set(frac->numerator * f->frac->denominator + f->frac->numerator * frac->denominator, 
+						frac->denominator *= f->frac->denominator);
+
+		}
+
+		void subtract(fraction *f) {
+			set(frac->numerator * f->frac->denominator - f->frac->numerator * frac->denominator, 
+						frac->denominator *= f->frac->denominator);	
+		}
+
+		void multiply(fraction *f) {
+			set(frac->numerator * f->frac->numerator, frac->denominator * f->frac->denominator);
 		}
 
 		void out(void) {
