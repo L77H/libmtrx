@@ -9,7 +9,7 @@
  * methods.   Available methods:        *
  *		- construct(void)	*
  * 		- populate(v[])		*
- * 		- identity(v[])		*
+ * 		- identity(void)	*
  * 		- duplicate(void)	*
  *		- get(w, h)		*
  *		- out(void)		*
