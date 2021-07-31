@@ -20,3 +20,7 @@ unsigned long long factorial(unsigned long long n) {
 }
 
 #define swap(A, B) {int tmp = *A; *A = *B; *B = tmp;}
+
+#define max(A, B) (A > B) ? A : B
+
+#define min(A, B) (A < B) ? A : B
