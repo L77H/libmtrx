@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fractional_obj_class.cpp"
+#include "base_operations.h"
 
 /* matrix object class providing  basic *
  * matrix operations. The matrix object *
@@ -17,11 +18,12 @@
  *		- subtract(A)		*
  *		- multiply(A)		*
  *		- mulitply_n(n)		*
- *		- transpose(void)	*/
+ *		- transpose(void)	*
+ *		- determinant(void)	*/
 
 /* TODO:
- * add methods: determinant, invert and power 		*
- * add support for: fractional numbers          > DONE  	*/
+ * add methods: invert and power 		*/
+
 
 #define					MAX_MATRIX_VECTOR_SIZE	2560
 
@@ -36,6 +38,7 @@ class matrix {
 
 		matrix_struct 		*M;
 		int 			matrix_as_vector[MAX_MATRIX_VECTOR_SIZE];
+		fraction		det;
 
 		matrix_struct *get_mstruct(void) {
 			matrix_struct *m_tmp = (matrix_struct *) malloc(sizeof(matrix_struct));
@@ -54,6 +57,48 @@ class matrix {
 			} 
 		}
 
+		void lin_row(int *v, int n) {
+		/* void linear_row(int *V, int n) ported from libmtrx.c */
+			for (int i = 1; i < n + 1; i++) 
+				v[i - 1] = i;
+		}
+
+		void d(int *v, const int n, const int s, const int x, const unsigned long long f, const short r) {
+		/* void d(int *V, const int n, const int s, const int x, frac *D, const frac (*M)[x], const unsigned long long f, const short r) *
+		 * ported from libmtrx.c 																										 */
+			
+			static int c = 0;
+			if (r)
+				c = 0;
+			
+			if (n == 1) {
+				int sign = power(-1, c);
+				fraction prod;
+				prod.set(sign, 1);
+
+				for (int i = 0; i < s; i++) {
+					prod.multiply(&M->M[i][v[i] - 1]);
+				}
+				
+				det.add(&prod);
+				++c;
+
+			} else {
+
+				d(v, n - 1, s, x, f, 0);
+				for (int i = 0; i < n - 1; i++) {
+
+					if (n % 2 == 0) {
+						swap(&v[i], &v[n-1]);
+					} else {
+						swap(&v[0], &v[n-1]);
+					}
+
+					d(v, n - 1, s, x, f, 0);
+				}
+			}
+		}
+
 	public:
 
 		int 			height;
@@ -62,6 +107,7 @@ class matrix {
 	 	matrix(void) {
 	 	/* construct our matrix object */
 			M = (matrix_struct *) malloc(sizeof(matrix_struct));
+			//det = (fraction *) malloc(sizeof(fraction));
 		}
 
 		void construct(int h, int w) {
@@ -84,7 +130,7 @@ class matrix {
 				}
 			}
 		}
-	
+
 		void identity(void) {
 		/* make M an identity matrix fast, does not overwrite non diagonal values */
 			for (int i = 0; i < M->w; i++) {
@@ -165,6 +211,13 @@ class matrix {
 				}
 			} 
 			copy(m_tmp);
+		}
+
+		fraction determinant() {
+			int v[width];
+			lin_row(v, width);
+			d(v, width, width, width, factorial(width), 1);
+			return det;
 		}
 
 		void out(void) {
