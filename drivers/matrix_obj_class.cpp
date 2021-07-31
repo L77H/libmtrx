@@ -9,6 +9,7 @@
  * methods.   Available methods:        *
  *		- construct(void)	*
  * 		- populate(v[])		*
+ * 		- identity(v[])		*
  * 		- duplicate(void)	*
  *		- get(w, h)		*
  *		- out(void)		*
@@ -81,6 +82,13 @@ class matrix {
 						matrix_as_vector[k] = v[k];
 					k++;
 				}
+			}
+		}
+	
+		void identity(void) {
+		/* make M an identity matrix fast, does not overwrite non diagonal values */
+			for (int i = 0; i < M->w; i++) {
+				M->M[i][i].set(1, 1);
 			}
 		}
 
