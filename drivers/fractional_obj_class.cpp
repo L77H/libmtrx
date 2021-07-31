@@ -15,6 +15,7 @@
  *		- add(f)         	 *
  *		- subtract(f)		 *
  *		- multiply(f)         	 *
+ *		- flip(void)         	 *
  *		- out(void)              */
 
 typedef struct {
@@ -56,6 +57,12 @@ class fraction {
 			if (dec == 0.0) 
 				dec = (long double) frac->numerator / frac->denominator;
 			return dec;
+		}
+	
+		void flip(void) {
+			long int tmp = frac->denominator;
+			frac->denominator = frac->numerator;
+			frac->numerator = tmp;
 		}
 
 		long int gcd(void) {
