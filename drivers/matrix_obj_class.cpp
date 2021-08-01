@@ -287,7 +287,7 @@ class matrix {
 					if (M->M[i][j].d == 1)
 						printf(" %ld ", M->M[i][j].n);
 					else
-						printf(" %ld/%ld ", M->M[i][j].n, M->M[i][j].d);
+						printf(" %ld/%ld ", (M->M[i][j].d < 0) ? M->M[i][j].n * -1 : M->M[i][j].n, (M->M[i][j].d < 0) ? M->M[i][j].d * -1 : M->M[i][j].d);
 				}
 				printf("%c\n", ']');
 			}
