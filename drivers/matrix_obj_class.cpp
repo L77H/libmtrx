@@ -19,10 +19,12 @@
  *		- multiply(A)		*
  *		- mulitply_n(n)		*
  *		- transpose(void)	*
- *		- determinant(void)	*/
+ *		- determinant(void)	*
+ *		- reduce(h, w)		*
+ *		- invert(void)		*/
 
-/* TODO:
- * add methods: invert and power 		*/
+/* TODO: *
+ * DONE  */
 
 
 #define					MAX_MATRIX_VECTOR_SIZE	2560
@@ -219,6 +221,64 @@ class matrix {
 			d(v, width, width, width, factorial(width), 1);
 			return det;
 		}
+	
+		void reduce(int w, int h) {
+		/* void reduce(const int w, const frac (*M)[w], const int x, const int y, frac (*R)[w]) *
+		 * ported from libmtrx.c . Indexation for w and h starts at 0.							*
+		 * 					OPTIMIZED VERSION							*/
+
+			matrix_struct *m_tmp = get_mstruct();
+
+			int offseti = 0, offsetj;
+			for (int i = 0; i < M->w; i++) {
+				if (i == h) {
+					offseti = 1;
+					continue;
+				}
+
+				offsetj = 0;
+				for (int j = 0; j < M->w; j++) {
+					if (j == w) {
+						offsetj = 1;
+						continue;
+					}
+
+					m_tmp->M[i - offseti][j - offsetj].set(M->M[i][j].n, M->M[i][j].d);
+				}
+			}
+			copy(m_tmp);
+			M->w--, width--;
+			M->h--, height--;
+		}
+
+		void invert(void) {
+		/* void i(const int w, const frac (*M)[w], frac (*R)[w]) ported from libmtrx.c */
+
+			int vfull[width], vreduced[width - 1];
+			fraction det;
+			matrix H, T;
+
+			H.construct(M->h, M->w);
+			T.construct(M->h, M->w);
+
+			for (int i = 0; i < M->w; i++) {
+				for (int j = 0; j < M->w; j++) {
+					H = duplicate();
+
+					H.reduce(i, j);
+
+					det = H.determinant();
+
+					T.M->M[i][j].set(power(-1, i + j) * det.n, det.d);
+				}
+			}
+
+			det = determinant();
+			det.flip();
+
+			T.multiply_n(det);
+			copy(T.M);
+		}
 
 		void out(void) {
 			for (int i = 0; i < M->h; i++) {
@@ -242,19 +302,29 @@ int main() {
 	matrix M2;
 
 	M1.construct(3, 3);
-	M2.construct(3, 3);
-	int v[9] = {1,2,3,4,5,6,7,8,9};
+	M2.construct(2, 2);
+	int v[9] = {1,2,3,4,9,6,7,8,9};
+	int v1[4] = {11,2,3,44};
 
 	M1.populate(v);
-	M2.populate(v);
+	M2.populate(v1);
 
 	//int r = M1.add(&M2);
 	// printf("%d\n", r);
 
 	//M1.transpose();
-	M1.multiply(&M2);
+	//M1.multiply(&M2);
 
-	M1.out();
+	// fraction d = M1.determinant();
+	// printf("det:\n");
+	// d.out();
+
+	//M1.reduce(2,2);
+	//M1.out();
+
+	M2.invert();
+
+	M2.out();
 
 	return 0;
 }
