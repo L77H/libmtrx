@@ -93,6 +93,6 @@ class fraction {
 			if (d == 1) 
 				printf("%ld\n%Lf\n", n, dec);
 			else
-				printf("%ld/%ld\n%Lf\n", n, d, dec);
+				printf("%ld/%ld\n%Lf\n", (d < 0) ? n * -1 : n, (d < 0) ? d * -1 : d, dec);
 		}
 };
