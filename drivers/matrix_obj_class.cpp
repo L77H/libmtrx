@@ -200,21 +200,26 @@ class matrix {
 		}
 
 		void multiply(matrix *A) {
-			matrix_struct *m_tmp = get_mstruct();
-			fraction dot, f_tmp;
-			for (int i = 0; i < M->h; i++) {
-				for (int j = 0; j < M->h; j++) {
-					dot.set(0, 1);
-					for (int k = 0; k < M->w; k++) {
-						f_tmp.set(M->M[i][k].n, M->M[i][k].d);
-						f_tmp.multiply(A->get(k, j));
-						dot.add(&f_tmp);
-						f_tmp.set(0, 1);
+		/* multiply A with current matrix object */
+			if (width == A->height) {
+				matrix_struct *m_tmp = get_mstruct();
+				fraction dot, f_tmp;
+				for (int i = 0; i < M->h; i++) {
+					for (int j = 0; j < M->h; j++) {
+						dot.set(0, 1);
+						for (int k = 0; k < M->w; k++) {
+							f_tmp.set(M->M[i][k].n, M->M[i][k].d);
+							f_tmp.multiply(A->get(k, j));
+							dot.add(&f_tmp);
+						}
+						m_tmp->M[i][j].set(dot.n, dot.d);
 					}
-					m_tmp->M[i][j].set(dot.n, dot.d);
 				}
+				if (height != A->height) {
+					construct(height, A->width);
+				}
+				copy(m_tmp);
 			}
-			copy(m_tmp);
 		}
 
 		void multiply_n(int n) {
