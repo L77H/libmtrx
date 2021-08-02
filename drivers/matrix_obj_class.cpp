@@ -312,10 +312,12 @@ class matrix {
 			}
 
 			det = determinant();
-			det.flip();
+			if (det.n != 0) {
+				det.flip();
 
-			T.multiply_f(det);
-			copy(T.M);
+				T.multiply_f(det);
+				copy(T.M);
+			}
 		}
 	
 		int is_identical(matrix *A) {
