@@ -21,7 +21,10 @@
  *		- transpose(void)	*
  *		- determinant(void)	*
  *		- reduce(h, w)		*
- *		- invert(void)		*/
+ *		- invert(void)		*
+ *		- is_identical(A)	*
+ *		- is_commutator(A)	*/
+
 
 /* TODO: *
  * DONE  */
@@ -278,6 +281,32 @@ class matrix {
 
 			T.multiply_n(det);
 			copy(T.M);
+		}
+	
+		int is_identical(matrix *A) {
+			if (width != A->width || height != A->height)
+				return 0;
+			for (int i = 0; i < M->h; i++) {
+				for (int j = 0; j < M->w; j++) {
+					if (M->M[i][j].n != A->M->M[i][j].n || M->M[i][j].d != A->M->M[i][j].d)
+						return 0;
+				}
+			}
+			return 1;
+		}
+
+		int is_commutator(matrix *A) {
+		/* int commutator(int w, frac (*A)[w], frac (*B)[w]) ported from libmtrx.c */
+
+			matrix M1 = duplicate();
+			matrix M2 = duplicate();
+
+			M1.multiply(A);
+			A->multiply(&M2);
+
+			if (M1.are_identical(A))
+				return 1;
+			return 0;
 		}
 
 		void out(void) {
