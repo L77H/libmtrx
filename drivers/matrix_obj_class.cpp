@@ -23,7 +23,8 @@
  *		- reduce(h, w)		*
  *		- invert(void)		*
  *		- is_identical(A)	*
- *		- is_commutator(A)	*/
+ *		- is_commutator(A)	*
+ *		- topower(n)		*/
 
 
 /* TODO: *
@@ -102,6 +103,25 @@ class matrix {
 					d(v, n - 1, s, x, f, 0);
 				}
 			}
+		}
+	
+		void m(void) {
+		/* multiply by itself */
+			matrix_struct *m_tmp = get_mstruct();
+			fraction dot, f_tmp;
+			for (int i = 0; i < M->h; i++) {
+				for (int j = 0; j < M->h; j++) {
+					dot.set(0, 1);
+					for (int k = 0; k < M->w; k++) {
+						f_tmp.set(M->M[i][k].n, M->M[k][j].d);
+						f_tmp.multiply(&M->M[k][j]);
+						dot.add(&f_tmp);
+						f_tmp.set(0, 1);
+					}
+					m_tmp->M[i][j].set(dot.n, dot.d);
+				}
+			}
+			copy(m_tmp);
 		}
 
 	public:
@@ -299,14 +319,23 @@ class matrix {
 		/* int commutator(int w, frac (*A)[w], frac (*B)[w]) ported from libmtrx.c */
 
 			matrix M1 = duplicate();
-			matrix M2 = duplicate();
 
 			M1.multiply(A);
-			A->multiply(&M2);
+			A->m();
 
-			if (M1.are_identical(A))
+			if (M1.is_identical(A))
 				return 1;
 			return 0;
+		}
+
+		void topower(int n) {
+		/* raise M to power n */
+
+			matrix Mcopy = duplicate();
+
+			for (int i = 0; i < n - 1; i++) {
+				multiply(&Mcopy);
+			}
 		}
 
 		void out(void) {
