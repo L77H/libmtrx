@@ -370,36 +370,45 @@ class matrix {
 };
 
 
-int main() {
+// int main() {
 
-	/* test and driver code */
-	matrix M1;
-	matrix M2;
+// 	matrix M1;
+// 	matrix M2;
 
-	M1.construct(3, 3);
-	M2.construct(2, 2);
-	int v[9] = {1,2,3,4,9,6,7,8,9};
-	int v1[4] = {11,2,3,44};
+// 	M1.construct(2,2);
+// 	M2.construct(2,2);
+// 	int v[9] = {1,2,3,4,9,6,7,8,9};
+// 	int v1[25] = {1,6,6,0,8,4,7,3,8,8,5,4,6,9,7,7,1,1,3,7,2,7,5,5,6};
+// 	int v2[4] = {1,2,3,4};
+// 	int v3[4] = {1,0,0,1};
 
-	M1.populate(v);
-	M2.populate(v1);
+// 	M1.populate(v2);
+// 	M2.populate(v3);
 
-	//int r = M1.add(&M2);
-	// printf("%d\n", r);
+// 	//int r = M1.add(&M2);
+// 	// printf("%d\n", r);
 
-	//M1.transpose();
-	//M1.multiply(&M2);
+// 	//M1.transpose();
+// 	//M1.multiply(&M2);
 
-	// fraction d = M1.determinant();
-	// printf("det:\n");
-	// d.out();
+// 	// fraction d = M1.determinant();
+// 	// printf("det:\n");
+// 	// d.out();
 
-	//M1.reduce(2,2);
-	//M1.out();
+// 	//M1.reduce(2,2);
+// 	//M1.out();
 
-	M2.invert();
+// 	M1.topower(8);
 
-	M2.out();
+// 	M1.out();
+// 	M2.out();
 
-	return 0;
-}
+// 	printf("%d\n", M2.is_commutator(&M1));
+
+
+// 	//M2.invert();
+
+// 	//M2.out();
+
+// 	return 0;
+// }
