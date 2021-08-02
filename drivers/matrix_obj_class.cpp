@@ -18,6 +18,7 @@
  *		- subtract(A)		*
  *		- multiply(A)		*
  *		- mulitply_n(n)		*
+ *		- mulitply_f(f)		*
  *		- transpose(void)	*
  *		- determinant(void)	*
  *		- reduce(h, w)		*
@@ -231,6 +232,15 @@ class matrix {
 				}
 			}
 		}
+	
+		void multiply_f(fraction f) {
+			for (int i = 0; i < M->h; i++) {
+				for (int j = 0; j < M->w; j++) {
+					M->M[i][j].multiply(&f);
+					M->M[i][j].simplify();
+				}
+			}
+		}
 
 		void transpose(void) {
 		/* transpose matrix M */
@@ -304,7 +314,7 @@ class matrix {
 			det = determinant();
 			det.flip();
 
-			T.multiply_n(det);
+			T.multiply_f(det);
 			copy(T.M);
 		}
 	
