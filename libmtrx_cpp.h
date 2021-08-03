@@ -2,10 +2,10 @@
 #include "drivers/matrix_obj_class.cpp"
 
 
-/* *																					   * *
- *																						     *
- *  	LIBMTRX CPP OBJECT CLASS															 *
- *																						     *												
+/* *                                                                                       * *
+ *                                                                                           *
+ *  	LIBMTRX CPP OBJECT CLASS                                                               *
+ *                                                                                           *												
  *  libmtrx allows to create a matrix object and manipulate it according to your needs. The  *
  *  below methods allow you to add, subtract, multiply, transpose, reduce, invert and raise  *
  *  to a power. All of these methods manipulate the matrix object in place.                  *
@@ -40,61 +40,61 @@
  *                                                                                          *
  * method specifications:                                                                   *
  *                                                                                          *
- * 		void matrix::construct(int h, int w)                                                *
- *			method used to sepcify the desired dimensions of the matrix.                    *
+ *   void matrix::construct(int h, int w)                                                   *
+ *     method used to sepcify the desired dimensions of the matrix.                         *
  *                                                                                          *
- *		void matrix::populate(const int v[])                                                *
- *			fill the before constructed (h x w) matrix with  the values  of the  patameter  *
- *			array v. v has to be of size h * w.                                             *
+ *   void matrix::populate(const int v[])                                                   *
+ *      fill the before constructed (h x w) matrix with  the values  of the  patameter      *
+ *      array v. v has to be of size h * w.                                                 *
  *                                                                                          *
- *		void matrix::identity(void)                                                         *
- *			make an identity  matrix out  of the before constructed (h x w) matrix. Values  *
- *			not on the diagonal are not overwritten!                                        *
+ *   void matrix::identity(void)                                                            *
+ *      make an identity  matrix out  of the before constructed (h x w) matrix. Values      *
+ *      not on the diagonal are not overwritten!                                            *
  *                                                                                          *
- *		matrix matrix::duplicate(void)                                                      *
- *			duplicate the matrix object into a new matrix object.                           *
+ *		matrix matrix::duplicate(void)                                                          *
+ *			duplicate the matrix object into a new matrix object.                                  *
  *                                                                                          *
- *		fraction matrix::*get(int h, int w)                                                 *
- *			get the value, as a fraction object, at position (h, w).                        *
+ *   fraction matrix::*get(int h, int w)                                                    *
+ *      get the value, as a fraction object, at position (h, w).                            *
  *                                                                                          *
- *		int matrix::add(matrix *A)                                                          *
- *			add matrix object A to the matrix. Returns 0 on success, -1 on failure.         *
+ *   int matrix::add(matrix *A)                                                             *
+ *      add matrix object A to the matrix. Returns 0 on success, -1 on failure.             *
  *                                                                                          *
- *		int matrix::subtract(matrix *A)	                                                    *
- *			subtract matrix object A from the matrix. Returns 0 on success, -1 on failure.  *
+ *   int matrix::subtract(matrix *A)	                                                       *
+ *      subtract matrix object A from the matrix. Returns 0 on success, -1 on failure.      *
  *                                                                                          *
- *		int matrix::multiply(matrix *A)                                                     *
- *			mulitply matrix object A with the matrix. Returns 0 on success, -1 on failure.  *
+ *   int matrix::multiply(matrix *A)                                                        *
+ *      mulitply matrix object A with the matrix. Returns 0 on success, -1 on failure.      *
  *                                                                                          *
- *		void matrix::multiply_n(int n)                                                      *
- *			multiply the matrix with an integer n.                                          *
+ *   void matrix::multiply_n(int n)                                                         *
+ *      multiply the matrix with an integer n.                                              *
  *                                                                                          *
- *		void matrix::multiply_f(fraction f)                                                 *
- *			multiply the matrix with a fraction object f.                                   *
+ *   void matrix::multiply_f(fraction f)                                                    *
+ *      multiply the matrix with a fraction object f.                                       *
  *                                                                                          *
- *		void matrix::transpose(void)                                                        *
- *			transpose the matrix.                                                           *
+ *   void matrix::transpose(void)                                                           *
+ *      transpose the matrix.                                                               *
  *                                                                                          *
- *		fraction matrix::determinant()                                                      *
- *			calculate the determinant of the matrix. Returns the determinant as a fraction  *
- *			object.                                                                         *
+ *   fraction matrix::determinant()                                                         *
+ *      calculate the determinant of the matrix. Returns the determinant as a fraction      *   
+ *      object.                                                                             *
  *                                                                                          *
- * 		void matrix::reduce(int w, int h)                                                   *
- *			reduce the matrix to (w - 1 x h - 1). Removes column at w and row at h.         *
+ *   void matrix::reduce(int w, int h)                                                      *
+ *      reduce the matrix to (w - 1 x h - 1). Removes column at w and row at h.             *
  *                                                                                          *
- *		void matrix::invert(void)                                                           *
- *			invert the matrix if non 0 determinant otherwise  keep original  state of  the  *
- *			matrix (still performs majority of work).                                       *
+ *   void matrix::invert(void)                                                              *
+ *      invert the matrix if non 0 determinant otherwise  keep original  state of  the      *
+ *      matrix (still performs majority of work).                                           *
  *                                                                                          *
- *		int matrix::is_identical(matrix *A)                                                 *
- *			are the matrix and matrix A identical? Returns bool.                            *
+ *   int matrix::is_identical(matrix *A)                                                    *
+ *      are the matrix and matrix A identical? Returns bool.                                *
  *                                                                                          *
- *		int matrix::is_commutator(matrix *A)                                                *
- *			is matrix A a commutator of the matrix? Returns bool.                           *
+ *   int matrix::is_commutator(matrix *A)                                                   *
+ *      is matrix A a commutator of the matrix? Returns bool.                               *
  *                                                                                          *
- *		void matrix::topower(int n)                                                         *
- *			raise the matrix to power n.                                                    *
+ *   void matrix::topower(int n)                                                            *
+ *      raise the matrix to power n.                                                        *
  *                                                                                          *
- *		void matrix::out(void)                                                              *
- *			print the matrix, usefull for debugging.                                        *
- * *																					  * */																						
+ *   void matrix::out(void)                                                                 *
+ *      print the matrix, usefull for debugging.                                            *
+ * *                                                                                      * */																						
