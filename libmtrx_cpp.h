@@ -4,7 +4,7 @@
 
 /* *                                                                                       * *
  *                                                                                           *
- *  	LIBMTRX CPP OBJECT CLASS                                                               *
+ *   LIBMTRX CPP OBJECT CLASS                                                                *
  *                                                                                           *												
  *  libmtrx allows to create a matrix object and manipulate it according to your needs. The  *
  *  below methods allow you to add, subtract, multiply, transpose, reduce, invert and raise  *
@@ -51,8 +51,8 @@
  *      make an identity  matrix out  of the before constructed (h x w) matrix. Values      *
  *      not on the diagonal are not overwritten!                                            *
  *                                                                                          *
- *		matrix matrix::duplicate(void)                                                          *
- *			duplicate the matrix object into a new matrix object.                                  *
+ *   matrix matrix::duplicate(void)                                                         *
+ *      duplicate the matrix object into a new matrix object.                               *
  *                                                                                          *
  *   fraction matrix::*get(int h, int w)                                                    *
  *      get the value, as a fraction object, at position (h, w).                            *
@@ -60,7 +60,7 @@
  *   int matrix::add(matrix *A)                                                             *
  *      add matrix object A to the matrix. Returns 0 on success, -1 on failure.             *
  *                                                                                          *
- *   int matrix::subtract(matrix *A)	                                                       *
+ *   int matrix::subtract(matrix *A)                                                        *
  *      subtract matrix object A from the matrix. Returns 0 on success, -1 on failure.      *
  *                                                                                          *
  *   int matrix::multiply(matrix *A)                                                        *
