@@ -47,18 +47,19 @@ class matrix {
 		int 			matrix_as_vector[MAX_MATRIX_VECTOR_SIZE];
 		fraction		det;
 
-		matrix_struct *get_mstruct(void) {
+		matrix_struct *get_mstruct(int h, int w) {
 			matrix_struct *m_tmp = (matrix_struct *) malloc(sizeof(matrix_struct));
-			m_tmp->M = new fraction *[M->h];
+			// matrix_struct *m_tmp = new matrix_struct; /* more type safe */
+			m_tmp->M = new fraction *[h];
 			for (int i = 0; i < M->h; i++) {
-				m_tmp->M[i] = new fraction[M->w];
+				m_tmp->M[i] = new fraction[w];
 			}
 			return m_tmp;
 		}
 
 		void copy(matrix_struct *tmp) {
-			for (int i = 0; i < M->w; i++) {
-				for (int j = 0; j < M->h; j++) {
+			for (int i = 0; i < M->h; i++) {
+				for (int j = 0; j < M->w; j++) {
 					M->M[i][j].set(tmp->M[i][j].n, tmp->M[i][j].d);
 				}
 			} 
@@ -105,10 +106,10 @@ class matrix {
 				}
 			}
 		}
-	
+
 		void m(void) {
 		/* multiply by itself */
-			matrix_struct *m_tmp = get_mstruct();
+			matrix_struct *m_tmp = get_mstruct(M->h, M->w);
 			fraction dot, f_tmp;
 			for (int i = 0; i < M->h; i++) {
 				for (int j = 0; j < M->h; j++) {
@@ -133,7 +134,7 @@ class matrix {
 	 	matrix(void) {
 	 	/* construct our matrix object */
 			M = (matrix_struct *) malloc(sizeof(matrix_struct));
-			//det = (fraction *) malloc(sizeof(fraction));
+			//M = new matrix_struct; /* more type safe */
 		}
 
 		void construct(int h, int w) {
@@ -145,7 +146,7 @@ class matrix {
 			M->h = height = h;
 		}
 
-		void populate(int v[]) {
+		void populate(const int v[]) {
 		/* no sanity check! assumes that v[] has correct dimension */
 			for (int i = 0, k = 0; i < M->h; i++) {
 				for (int j = 0; j < M->w; j++) {
@@ -158,7 +159,7 @@ class matrix {
 		}
 
 		void identity(void) {
-		/* make M an identity matrix fast, does not overwrite non diagonal values */
+		/* make M an identity matrix fast, does not overwrite non diagonal values! */
 			for (int i = 0; i < M->w; i++) {
 				M->M[i][i].set(1, 1);
 			}
@@ -203,10 +204,10 @@ class matrix {
 		void multiply(matrix *A) {
 		/* multiply A with current matrix object */
 			if (width == A->height) {
-				matrix_struct *m_tmp = get_mstruct();
+				matrix_struct *m_tmp = get_mstruct(height, A->width);
 				fraction dot, f_tmp;
 				for (int i = 0; i < M->h; i++) {
-					for (int j = 0; j < M->h; j++) {
+					for (int j = 0; j < A->width; j++) {
 						dot.set(0, 1);
 						for (int k = 0; k < M->w; k++) {
 							f_tmp.set(M->M[i][k].n, M->M[i][k].d);
@@ -216,7 +217,7 @@ class matrix {
 						m_tmp->M[i][j].set(dot.n, dot.d);
 					}
 				}
-				if (height != A->height) {
+				if (width != A->width && height != A->height) {
 					construct(height, A->width);
 				}
 				copy(m_tmp);
@@ -229,10 +230,11 @@ class matrix {
 			for (int i = 0; i < M->h; i++) {
 				for (int j = 0; j < M->w; j++) {
 					M->M[i][j].multiply(&f);
+					M->M[i][j].simplify();
 				}
 			}
 		}
-	
+
 		void multiply_f(fraction f) {
 			for (int i = 0; i < M->h; i++) {
 				for (int j = 0; j < M->w; j++) {
@@ -244,7 +246,7 @@ class matrix {
 
 		void transpose(void) {
 		/* transpose matrix M */
-			matrix_struct *m_tmp = get_mstruct();
+			matrix_struct *m_tmp = get_mstruct(M->h, M->w);
 			for (int i = 0; i < M->w; i++) {
 				for (int j = 0; j < M->h; j++) {
 					m_tmp->M[j][i].set(M->M[i][j].n, M->M[i][j].d);
@@ -254,18 +256,18 @@ class matrix {
 		}
 
 		fraction determinant() {
-			int v[width];
-			lin_row(v, width);
-			d(v, width, width, width, factorial(width), 1);
+			int v[M->w];
+			lin_row(v, M->w);
+			d(v, M->w, M->w, M->w, factorial(M->w), 1);
 			return det;
 		}
-	
+
 		void reduce(int w, int h) {
 		/* void reduce(const int w, const frac (*M)[w], const int x, const int y, frac (*R)[w]) *
 		 * ported from libmtrx.c . Indexation for w and h starts at 0.							*
-		 * 					OPTIMIZED VERSION							*/
+		 *                                           OPTIMIZED VERSION                                                  */
 
-			matrix_struct *m_tmp = get_mstruct();
+			matrix_struct *m_tmp = get_mstruct(M->h, M->w);
 
 			int offseti = 0, offsetj;
 			for (int i = 0; i < M->w; i++) {
@@ -319,7 +321,7 @@ class matrix {
 				copy(T.M);
 			}
 		}
-	
+
 		int is_identical(matrix *A) {
 			if (width != A->width || height != A->height)
 				return 0;
