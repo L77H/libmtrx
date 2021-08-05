@@ -40,10 +40,11 @@ class fraction {
 		long int 			n; 		// numerator
 		long double			dec;	        // decimal
 
-		fraction(void) {
+		fraction(int num = 0, int denom = 1) {
+		// allows for fraction v[2] = {fraction(1,2), fraction(1,3)}
 			frac = (fraction_struct *) malloc(sizeof(fraction_struct));
-			frac->numerator = n = 0;
-			frac->denominator = d = 1;
+			frac->numerator = n = num;
+			frac->denominator = d = denom;
 			dec = 0.0;
 		}
 
