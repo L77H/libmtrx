@@ -10,6 +10,7 @@
  * methods.   Available methods:        *
  *		- construct(void)	*
  * 		- populate(v[])		*
+ * 		- populate_frac(v[])	*
  * 		- identity(void)	*
  * 		- duplicate(void)	*
  *		- get(w, h)		*
@@ -44,7 +45,7 @@ class matrix {
 	private:
 
 		matrix_struct 		*M;
-		int 			matrix_as_vector[MAX_MATRIX_VECTOR_SIZE];
+		fraction 		matrix_as_vector[MAX_MATRIX_VECTOR_SIZE];
 		fraction		det;
 
 		matrix_struct *get_mstruct(int h, int w) {
@@ -152,7 +153,18 @@ class matrix {
 				for (int j = 0; j < M->w; j++) {
 					M->M[i][j].set(v[k], 1);
 					if (k < MAX_MATRIX_VECTOR_SIZE)
-						matrix_as_vector[k] = v[k];
+						matrix_as_vector[k].set(v[k], 1);
+					k++;
+				}
+			}
+		}
+
+		void populate_frac(const fraction v[]) {
+			for (int i = 0, k = 0; i < M->h; i++) {
+				for (int j = 0; j < M->w; j++) {
+					M->M[i][j].set(v[k].n, v[k].d);
+					if (k < MAX_MATRIX_VECTOR_SIZE)
+						matrix_as_vector[k].set(v[k].n, v[k].d);
 					k++;
 				}
 			}
@@ -168,7 +180,7 @@ class matrix {
 		matrix duplicate(void) {
 			class matrix Mout;
 			Mout.construct(M->h, M->w);
-			Mout.populate(matrix_as_vector);
+			Mout.populate_frac(matrix_as_vector);
 			return Mout;
 		}
 
