@@ -30,7 +30,7 @@
 
 
 /* TODO: *
- * DONE  */
+ * Update matrix_as_vector after every manipulation */
 
 
 #define					MAX_MATRIX_VECTOR_SIZE	2560
@@ -64,6 +64,7 @@ class matrix {
 			for (int i = 0; i < M->h; i++) {
 				for (int j = 0; j < M->w; j++) {
 					M->M[i][j].set(tmp->M[i][j].n, tmp->M[i][j].d);
+					matrix_as_vector[k++].set(tmp->M[i][j].n, tmp->M[i][j].d);
 				}
 			} 
 		}
