@@ -231,7 +231,7 @@ class matrix {
 						m_tmp->M[i][j].set(dot.n, dot.d);
 					}
 				}
-				if (width != A->width && height != A->height) {
+				if (width != A->width || height != A->height) {
 					construct(height, A->width);
 				}
 				copy(m_tmp);
