@@ -51,8 +51,10 @@ class matrix {
 		matrix_struct *get_mstruct(int h, int w) {
 			matrix_struct *m_tmp = (matrix_struct *) malloc(sizeof(matrix_struct));
 			// matrix_struct *m_tmp = new matrix_struct; /* more type safe */
+			m_tmp->h = h;
+			m_tmp->w = w;
 			m_tmp->M = new fraction *[h];
-			for (int i = 0; i < M->h; i++) {
+			for (int i = 0; i < h; i++) {
 				m_tmp->M[i] = new fraction[w];
 			}
 			return m_tmp;
@@ -258,12 +260,13 @@ class matrix {
 
 		void transpose(void) {
 		/* transpose matrix M */
-			matrix_struct *m_tmp = get_mstruct(M->h, M->w);
-			for (int i = 0; i < M->w; i++) {
-				for (int j = 0; j < M->h; j++) {
+			matrix_struct *m_tmp = get_mstruct(M->w, M->h);
+			for (int i = 0; i < M->h; i++) {
+				for (int j = 0; j < M->w; j++) {
 					m_tmp->M[j][i].set(M->M[i][j].n, M->M[i][j].d);
 				}
 			} 
+			construct(M->w, M->h);
 			copy(m_tmp);
 		}
 
