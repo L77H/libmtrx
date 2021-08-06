@@ -183,7 +183,12 @@ class matrix {
 		matrix duplicate(void) {
 			class matrix Mout;
 			Mout.construct(M->h, M->w);
-			Mout.populate_frac(matrix_as_vector);
+			//Mout.populate_frac(matrix_as_vector);
+			for (int i = 0; i < M->h; i++) {
+				for (int j = 0; j < M->w; j++) {
+					Mout.M->M[i][j].set(M->M[i][j].n, M->M[i][j].d);
+				}
+			}
 			return Mout;
 		}
 
