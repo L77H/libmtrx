@@ -382,8 +382,9 @@ class matrix {
 			for (int i = 0; i < M->h; i++) {
 				printf("%c", '[');
 				for (int j = 0; j < M->w; j++) {
-					if (M->M[i][j].d == 1)
-						printf(" %ld ", M->M[i][j].n);
+					M->M[i][j].simplify();
+					if (M->M[i][j].d == 1 || M->M[i][j].d == -1)
+						printf(" %ld ", (M->M[i][j].d == -1) ? M->M[i][j].n * -1 : M->M[i][j].n);
 					else
 						printf(" %ld/%ld ", (M->M[i][j].d < 0) ? M->M[i][j].n * -1 : M->M[i][j].n, (M->M[i][j].d < 0) ? M->M[i][j].d * -1 : M->M[i][j].d);
 				}
