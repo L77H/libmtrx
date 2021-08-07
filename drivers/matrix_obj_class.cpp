@@ -277,6 +277,11 @@ class matrix {
 		}
 
 		fraction determinant() {
+			if (width != height) {
+				det.set(0, 0);
+				return det;
+			}
+			
 			int v[M->w];
 			lin_row(v, M->w);
 			d(v, M->w, M->w, M->w, factorial(M->w), 1);
