@@ -18,6 +18,7 @@
  *		- add(A)		*
  *		- subtract(A)		*
  *		- multiply(A)		*
+ *		- multiply_at(A, h, w)  *
  *		- mulitply_n(n)		*
  *		- mulitply_f(f)		*
  *		- transpose(void)	*
@@ -242,6 +243,26 @@ class matrix {
 				}
 				copy(m_tmp);
 			}
+		}
+	
+		fraction *multiply_at(matrix *A, int h, int w) {
+		/* multiply row h with column w, index starts at 0 */
+			fraction *dot = new fraction(0, 1); 
+
+			if (width != A->height) {
+			// return 0/0 fraction if not defined
+				dot->set(0, 0);
+				return dot;
+			}
+
+			fraction f_tmp;
+			for (int i = 0; i < M->w; i++) {
+				f_tmp.set(M->M[h][i].n, M->M[h][i].d);
+				f_tmp.multiply(A->get(i, w));
+				dot->add(&f_tmp);
+			}
+
+			return dot;
 		}
 
 		void multiply_n(int n) {
