@@ -237,6 +237,10 @@
  *   int matrix::multiply(matrix *A)                                                         *
  *      mulitply matrix object A with the matrix. Returns 0 on success, -1 on failure.       *
  *                                                                                           * 
+ *   void matrix::multiply_at(matrix *A, int h, int w)                                       *
+ *      multiply column w and row h of the matrix object A with column w and row h of the    *
+ *      matrix.                                                                              *
+ *                                                                                           *
  *   void matrix::multiply_n(int n)                                                          *
  *      multiply the matrix with an integer n.                                               *
  *                                                                                           *
